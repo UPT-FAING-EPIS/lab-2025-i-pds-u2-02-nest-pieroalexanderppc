@@ -338,7 +338,7 @@ export class DataAccessLayer {
 > email-service.ts
 ```TS
 import { Customer } from "./customer";
-//import { Mailer.Service } from '@nestjs-modules/mailer';
+//import { Mailer..Service } from '@nestjs-modules/mailer';
 
 export class EmailService {
     //constructor(private readonly mailService: MailerService) {}
