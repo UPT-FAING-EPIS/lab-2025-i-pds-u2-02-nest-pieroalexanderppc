@@ -42,30 +42,30 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=pieroalexanderppc_SOLIDApp
+            -Dsonar.projectKey=pieroalexanderppc_solidapp
             -Dsonar.organization=pieroalexanderppc
             -Dsonar.sources=.
 
 
-      - name: Pack notifications_lupaca
+      - name: Pack notifications
         run: |
           npm version patch --no-git-tag-version
           npm pack
         working-directory: ./notifications
 
-      - name: Pack customer-app_lupaca
+      - name: Pack customer-app
         run: |
           npm version patch --no-git-tag-version
           npm pack
         working-directory: ./customer-app
 
-      - name: Publish notifications_lupaca to GitHub Packages
+      - name: Publish notifications to GitHub Packages
         run: npm publish --access public
         working-directory: ./notifications
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish customer-app_lupaca to GitHub Packages
+      - name: Publish customer-app to GitHub Packages
         run: npm publish --access public
         working-directory: ./customer-app
         env:
