@@ -1,0 +1,35 @@
+name: Publish Documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-and-publish-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install dependencies (notifications)
+        run: npm ci
+        working-directory: ./notifications
+
+      - name: Generate documentation with Compodoc
+        run: npx @compodoc/compodoc -p tsconfig.json -d ../documentation
+        working-directory: ./notifications
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./documentation
+          publish_branch: gh-pages

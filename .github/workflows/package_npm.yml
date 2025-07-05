@@ -1,0 +1,69 @@
+name: Package and Publish
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: Install dependencies (notifications)
+        run: npm ci
+        working-directory: ./notifications
+
+      - name: Install dependencies (customer-app)
+        run: npm ci
+        working-directory: ./customer-app
+
+      - name: Run tests (notifications)
+        run: npm run test:cov
+        working-directory: ./notifications
+
+      - name: Run tests (customer-app)
+        run: npm run test:cov
+        working-directory: ./customer-app
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pack notifications_lupaca
+        run: |
+          npm version patch --no-git-tag-version
+          npm pack
+        working-directory: ./notifications
+
+      - name: Pack customer-app_lupaca
+        run: |
+          npm version patch --no-git-tag-version
+          npm pack
+        working-directory: ./customer-app
+
+      - name: Publish notifications_lupaca to GitHub Packages
+        run: npm publish --access public
+        working-directory: ./notifications
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish customer-app_lupaca to GitHub Packages
+        run: npm publish --access public
+        working-directory: ./customer-app
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

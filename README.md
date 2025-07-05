@@ -1,8 +1,8 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/saEjXNYL)
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=19898344)
+[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=19560863)
 # SESION DE LABORATORIO N° 02: PATRONES DE DISEÑO ESTRUCTURALES
 
-### Nombre: 
+### Nombre: Piero Alenxander Paja De la Cruz
 
 ## OBJETIVOS
   * Comprender el funcionamiento de algunos patrones de diseño de software del tipo estructural.
@@ -34,21 +34,28 @@
 ![image](https://github.com/UPT-FAING-EPIS/SI889_PDS/assets/10199939/fab291c1-01e9-4a11-bfbd-a34609466cab)
 
 1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador. Redirigirse a una ubicación que no sea del sistema.
+![image](https://github.com/user-attachments/assets/f32f66df-96e5-4fdd-8e0c-b4c65dea1fc8)
+
 2. En el terminal, ejecutar el siguiente comando para instalar las herramientas necesarias para el laboratorio
 ```
 npm install -g @nestjs/cli
 npm install -g tsuml2
 ```
+![image](https://github.com/user-attachments/assets/413a2506-00c9-4956-895d-d1abe1874102)
+
 3. En el terminal, ejecutar el siguiente comando para crear una aplicación.
 ```
 nest new Notifications -p npm -g
 ```
+![image](https://github.com/user-attachments/assets/58f9a5fd-5435-4aed-a854-3d5c5608af51)
+
 4. En el terminal, ejecutar los siguientes comandos para acceder a la carpeta del proyecto y crear una nueva libreria de clases y adicionarla a la aplicación actual.
 ```TS
 cd notifications
 nest g lib domain
 ```
 > Cuando realice la pregunta de configuración, presionar Enter para aceptar el valor por defecto
+![image](https://github.com/user-attachments/assets/09abf9e1-8df6-4c83-b952-f9e1f80ba7c4)
 
 5. En el terminal, ejecutar el siguiente comando para crear los archivos necesarios para el laboratorio.
 ```Bash
@@ -59,7 +66,10 @@ nest g cl AbstractMessage -p domain --flat --no-spec
 nest g cl ShortMessage -p domain --flat --no-spec
 nest g cl LongMessage -p domain --flat --no-spec
 ```
+![image](https://github.com/user-attachments/assets/10682c93-5ff1-4b0e-9b53-6f195f8e488c)
+
 6. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto, si existe un archivo app.controller.spec.ts proceder a eliminarlo. 
+![image](https://github.com/user-attachments/assets/e8313307-6e3c-4dab-971c-ba59dbd71c49)
 
 7. En VS Code, en el proyecto Bank.Domain proceder a modificar el archivo el archivo icredit-card.interface.ts e introducir el siguiente código:
 ```TS
@@ -67,6 +77,8 @@ export interface IMessageSender {
   SendMessage(Message: string): string
 }
 ```
+![image](https://github.com/user-attachments/assets/be42ea60-eddd-4ed7-b2c1-7124afde7a06)
+
 7. En VS Code, en el proyecto Notification.Domain proceder a crear las implementaciones de la interfaz creada en el paso previo para eso modificamos los archivos:
 > sms-message-sender
 ```TS
@@ -78,6 +90,8 @@ export class SmsMessageSender implements IMessageSender {
     }
 }
 ```
+![image](https://github.com/user-attachments/assets/a8eb9f8d-8e47-4948-945f-4832dc6d590d)
+
 > email-message-sender.ts
 ```TS
 import { IMessageSender } from "./imessage-sender.interface";
@@ -88,6 +102,8 @@ export class EmailMessageSender implements IMessageSender {
     }
 }
 ```
+![image](https://github.com/user-attachments/assets/1de13586-4e16-444e-a1cb-ebe233a78fe2)
+
 8. En VS Code, en el proyecto Notification.Domain modificar la clase abstracta que permitira definir los posibles tipos de mensajes por lo que en el proyecto de Notifications.Domain se debe agregar en el archivo abstract-message.ts con el siguiente código:
 ```TS
 import { IMessageSender } from "./imessage-sender.interface";
@@ -97,6 +113,8 @@ export abstract class AbstractMessage {
     public abstract SendMessage(Message: string): string;
 }
 ```
+![image](https://github.com/user-attachments/assets/cc086a40-156a-4a12-94f6-f2b1d310c35d)
+
 9. En VS Code, sobre esta clase abstracta ahora se necesita implementar los tipos de mensajes concretos, para eso adicionar los siguientes archivos al proyecto Notifications.Domain:
 > short-message.ts
 ```TS
@@ -118,6 +136,8 @@ export class ShortMessage extends AbstractMessage {
     }
 }
 ```
+![image](https://github.com/user-attachments/assets/07f423e1-3157-4c23-9d70-75ad8e6c757f)
+
 > long-message.ts
 ```TS
 import { AbstractMessage } from "./abstract-message";
@@ -133,6 +153,8 @@ export class LongMessage extends AbstractMessage {
     }
 }
 ```
+![image](https://github.com/user-attachments/assets/e5a294dd-bf4c-4512-a396-c57a84b71378)
+
 10. En VS Code, ahora proceder a implementar unas pruebas para verificar el correcto funcionamiento de la aplicación. Para esto al proyecto Notifications.Domains modificarr el archivo domain.service.spec.ts y agregar el siguiente código:
 ```TS
 import { LongMessage } from './long-message';
@@ -187,25 +209,39 @@ describe('GivenLargeMessage_WhenSendinSMS_ThenOccursException', () => {
   });
 });
 ```
+![image](https://github.com/user-attachments/assets/7da58f9e-8787-4fd6-b264-a249cc79cd46)
+
 11. Ahora necesitamos comprobar las pruebas contruidas para eso abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```Bash
 npm run test:cov
 ```
+![image](https://github.com/user-attachments/assets/4de84aa2-4aa5-4743-8c06-9541a38d6adb)
+
 12. Si las pruebas se ejecutaron correctamente debera aparcer un resultado similar al siguiente:
 ```Bash
 Test Suites: 1 passed, 1 total
 Tests:       5 passed, 5 total
 ```
+![image](https://github.com/user-attachments/assets/25cf2df5-c4b5-42fa-ab57-884ebf047712)
+
 13. En el terminal, ejecutar el siguiente comando para generar el diagrama de clases respectivo.
 ```Bash
 tsuml2 --glob "./libs/**/*.ts" --outMermaidDsl "./class_diagram.md"
 ```
+![image](https://github.com/user-attachments/assets/a7dc25bc-fd6d-40c6-81d4-fd953809c696)
+
 14. En el VS Code, modificar el archivo class_diagram.md y adicionar \```mermaid al inicio del archivo y al final adicionar \```
+![image](https://github.com/user-attachments/assets/d842da1d-8291-4f0c-96f5-b7ae52961e74)
+![image](https://github.com/user-attachments/assets/37bdb008-6c32-454f-94ee-df53c03e9281)
 
 15. En el terminal, ejecutar el siguiente comando para generar la documentación del proyecto, esta se creara en la carpeta documentation
 ```Bash
 npx @compodoc/compodoc -p tsconfig.json -s
 ```
+![image](https://github.com/user-attachments/assets/c74d5b21-bad9-4314-bb11-3f82533105b1)
+
+![image](https://github.com/user-attachments/assets/60ee2064-b7c8-4e59-88e6-633fd37ae196)
+![image](https://github.com/user-attachments/assets/71e461bd-3205-47c0-a63f-a39a1384b59a)
 
 ### PARTE II: Facade Design Pattern
 
@@ -217,12 +253,15 @@ npx @compodoc/compodoc -p tsconfig.json -s
 ```
 nest new CustomerApp -p npm -g
 ```
+![image](https://github.com/user-attachments/assets/32f71b8b-5738-4522-a847-70d8cd5e9cbe)
+
 3. En el terminal, ejecutar los siguientes comandos para acceder a la carpeta del proyecto y crear una nueva libreria de clases y adicionarla a la aplicación actual.
 ```TS
 cd customer-app
 nest g lib domain
 ```
 > Cuando realice la pregunta de configuración, presionar Enter para aceptar el valor por defecto
+![image](https://github.com/user-attachments/assets/2ffc964a-2a0c-41e1-b5a2-b6d8bc694b9d)
 
 4. En el terminal, ejecutar el siguiente comando para crear los archivos necesarios para el laboratorio.
 ```Bash
@@ -232,7 +271,10 @@ nest g cl DataAccessLayer -p domain --flat --no-spec
 nest g cl EmailService -p domain --flat --no-spec
 nest g cl CustomerRegistration -p domain --flat --no-spec
 ```
+![image](https://github.com/user-attachments/assets/b4c52c78-c039-49cb-b6c4-f04fe02493d2)
+
 5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto, si existe un archivo app.controller.spec.ts proceder a eliminarlo. 
+![image](https://github.com/user-attachments/assets/c7661bd3-4069-466d-8c5d-55d9899b216d)
 
 6. En el VS Code, en el proyecto CustomerApp.Domain, primero se necesita implementar la entidad Cliente, para esto crear el archivo customer.ts con el siguiente código:
 ```TS
@@ -254,6 +296,8 @@ export class Customer {
     }
 }
 ```
+![image](https://github.com/user-attachments/assets/942dd5d9-0322-4beb-b07d-b57a6a2cb676)
+
 7. En el VS Code, en el proyecto CustomerApp.Domain, ahora se debe implementar cada una de clases correspondiente al flujo de creaciòn del cliente (validar, guardar y enviar email) para eso se deberan crear los siguientes archivos con el còdigo correspondiente:
 > validator.ts
 ```TS
@@ -271,6 +315,8 @@ export class Validator {
     }    
 }
 ```
+![image](https://github.com/user-attachments/assets/a51108d8-af2a-448f-89ab-c2b897b31dbf)
+
 > data-access-layer.ts
 ```TS
 import { Customer } from "./customer";
@@ -287,6 +333,8 @@ export class DataAccessLayer {
     }           
 }
 ```
+![image](https://github.com/user-attachments/assets/af75d07f-2f9a-4c4b-8417-5e812060ff40)
+
 > email-service.ts
 ```TS
 import { Customer } from "./customer";
@@ -307,6 +355,7 @@ export class EmailService {
     }         
 }
 ```
+![image](https://github.com/user-attachments/assets/1e72bf5e-dcb9-469a-82d0-3337d408b9aa)
 
 8. En el VS Code, en el proyecto CustomerApp.Domain, para probar esta implementación, modificar el archivo domain.service.spec.ts con el siguiente código:
 ```TS
@@ -353,15 +402,21 @@ describe('GivenANewCustomer_WhenRegister_ThenIsValidatedSavedEmailedSuccessfully
   });
 });
 ```
+![image](https://github.com/user-attachments/assets/251922a4-e198-45f6-bf1b-0fb50ddb52f9)
+
 9. Ahora necesitamos comprobar las pruebas contruidas para eso abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar el comando:
 ```Bash
 npm run test:cov
 ```
+![image](https://github.com/user-attachments/assets/e8c432c5-4853-49cf-b0de-91a592f6ecb4)
+
 10. Si las pruebas se ejecutaron correctamente debera aparcer un resultado similar al siguiente:
 ```Bash
 Test Suites: 1 passed, 1 total
 Tests:       5 passed, 5 total
 ```
+![image](https://github.com/user-attachments/assets/30461ba4-c9ff-4ac1-a59b-cfc6d272792f)
+
 11. Entonces ¿cuál es problema con este diseño? Funciona.... pero el problema es que ahora existen muchos sub sistemas como Validador, Acceso a Datos y Servicio de Email y el cliente que las utilice necesita seguir la secuencia apropiada para crear y consumir los objetos de los subsistemas. Existe una posibilidad que el cliente no siga esta secuencia apropiada o que olvide incluir o utilizar alguno de estos sub sistemas. Entonces si en vez de darle acceso a los sub sistemas, se crea una sola interfaz y se le brinda acceso al cliente para realizar el registo, asi la lógica compleja se traslada a esta interfaz sencilla. Para esto se utilizará el patrón FACHADA el cual escondera toda la complejidad y brindará un solo metodo cimple de usar al cliente.
 
 ![image](https://github.com/UPT-FAING-EPIS/SI889_PDS/assets/10199939/a9cb73bb-c996-4e9a-bf4c-f665f1957119)
@@ -390,6 +445,8 @@ export class CustomerRegistration {
 }
 
 ```
+![image](https://github.com/user-attachments/assets/a56c87ce-36bb-423b-8727-7264745c635d)
+
 13. En el VS Code, Finalmente adciionar un nuevo test de prueba en el archivo domain.service.spec.ts para comprobar el funcionamiento de la nueva clase creada:
 ```C#
 describe('GivenANewCustomer_WhenRegister_ThenIsRegisteredSuccessfully', () => {
@@ -412,25 +469,38 @@ describe('GivenANewCustomer_WhenRegister_ThenIsRegisteredSuccessfully', () => {
 });
        
 ```
+![image](https://github.com/user-attachments/assets/92c358aa-5b92-4a00-a1fc-41f97de054f4)
+
 14. Ahora necesitamos comprobar las pruebas contruidas para eso abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar el comando:
 ```Bash
 npm run test:cov
 ```
+![image](https://github.com/user-attachments/assets/f5fdc810-e0da-4986-b9c1-abd5468efdbf)
+
 15. Si las pruebas se ejecutaron correctamente debera aparcer un resultado similar al siguiente:
 ```Bash
 Test Suites: 1 passed, 1 total
 Tests:       7 passed, 7 tota
 ```
+![image](https://github.com/user-attachments/assets/6603f6cc-f7b2-4c17-aee7-ed51d4d013ed)
+
 16. En el terminal, ejecutar el siguiente comando para generar el diagrama de clases respectivo.
 ```Bash
 tsuml2 --glob "./libs/**/*.ts" --outMermaidDsl "./class_diagram.md"
 ```
+![image](https://github.com/user-attachments/assets/88284e80-b9d3-42d3-a285-8006253a9165)
+
 17. En el VS Code, modificar el archivo class_diagram.md y adicionar \```mermaid al inicio del archivo y al final adicionar \```
+![image](https://github.com/user-attachments/assets/c9834d37-9b3f-48c0-a794-a62b47446a0d)
+![image](https://github.com/user-attachments/assets/0dde6fd4-46b4-462a-90d5-c95f86ae8a89)
 
 18. En el terminal, ejecutar el siguiente comando para generar la documentación del proyecto, esta se creara en la carpeta documentation
 ```Bash
 npx @compodoc/compodoc -p tsconfig.json -s
 ```
+![image](https://github.com/user-attachments/assets/9cbde338-60ea-4db3-9dac-7602f3b88c6a)
+![image](https://github.com/user-attachments/assets/3ee0a8f1-86fe-4045-923e-b4d9e26669b8)
+![image](https://github.com/user-attachments/assets/2ae1a608-681b-4d53-aa44-4df61186ba32)
 
 ---
 ## Actividades Encargadas
